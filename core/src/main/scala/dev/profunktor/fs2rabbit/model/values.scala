@@ -96,7 +96,7 @@ object ExchangeType {
   case object `X-Consistent-Hash` extends ExchangeType
 
   // for use with other plugins
-  case class Other(name: String)  extends ExchangeType
+  case class Other(name: String) extends ExchangeType
 }
 
 sealed abstract class DeliveryMode(val value: Int) extends Product with Serializable

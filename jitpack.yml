@@ -1,0 +1,3 @@
+install:
+  - sbt +compile
+  - sbt +publishM2
