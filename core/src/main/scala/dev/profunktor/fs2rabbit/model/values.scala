@@ -79,6 +79,8 @@ sealed trait ExchangeType extends Product with Serializable {
     case ExchangeType.Headers             => "headers"
     case ExchangeType.Topic               => "topic"
     case ExchangeType.`X-Delayed-Message` => "x-delayed-message"
+    case ExchangeType.`X-Consistent-Hash` => "x-consistent-hash"
+    case ExchangeType.Other(name)         => name
   }
 }
 object ExchangeType {
@@ -86,8 +88,15 @@ object ExchangeType {
   case object FanOut  extends ExchangeType
   case object Headers extends ExchangeType
   case object Topic   extends ExchangeType
-  case object `X-Delayed-Message`
-      extends ExchangeType // for use with the plugin https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/
+
+  // for use with the plugin https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/
+  case object `X-Delayed-Message` extends ExchangeType
+
+  // for use with the plugin https://github.com/rabbitmq/rabbitmq-server/tree/main/deps/rabbitmq_consistent_hash_exchange
+  case object `X-Consistent-Hash` extends ExchangeType
+
+  // for use with other plugins
+  case class Other(name: String) extends ExchangeType
 }
 
 sealed abstract class DeliveryMode(val value: Int) extends Product with Serializable
